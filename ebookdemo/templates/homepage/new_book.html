@@ -1,0 +1,101 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+   /* CSS cho danh sách sách */
+   .book-list {
+       display: flex;
+       flex-wrap: wrap;
+   }
+
+   /* CSS cho từng cuốn sách */
+   .book {
+       width: 250px;
+       margin: 10px;
+       padding: 10px;
+       border: 1px solid #ddd;
+       text-align: center;
+   }
+
+   /* CSS cho hình ảnh */
+   .book-image {
+       max-width: 100px;
+       max-height: 100px;
+       margin: 0 auto 10px;
+       display: block;
+   }
+
+   /* CSS cho tiêu đề sách và tác giả */
+   .book-title {
+       font-weight: bold;
+   }
+</style>
+
+ <div class="container">
+
+        <div class="col-xs-12 carausel-sliderWidget">
+         <section id="halim-advanced-widget-4">
+            <div class="section-heading">
+               <a href="danhmuc.html" title="Phim Chiếu Rạp">
+               <span class="h-text">{{title}}</span>
+               </a>
+               <ul class="heading-nav pull-right hidden-xs">
+                  <li class="section-btn halim_ajax_get_post" data-catid="4" data-showpost="12" data-widgetid="halim-advanced-widget-4" data-layout="6col"></li>
+               </ul>
+            </div>
+            <div id="halim-advanced-widget-4-ajax-box" class="halim_box">
+               {% for fb in booksPaging.books %}
+               <article class="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
+                  <div class="halim-item">
+                     <a class="halim-thumb" href="{% url 'core:detail' fb.book_slug %}" >
+                        <figure><img class="lazy img-responsive" src="{{fb.ImageURL}}" ></figure>
+                        <div class="halim-post-title-box">
+                           <div class="halim-post-title ">
+                              <p class="entry-title">{{fb.book_name}}</p>
+                              <p class="original_title">{{fb.book_view}} views</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </article>
+               {% endfor %}
+               
+            </div>
+         </section>
+         <div class="clearfix"></div>
+         <div class="text-center">
+            <ul class="page-numbers">
+               {% for page in totalPage %}
+               {% if page == booksPaging.paging.pageCurrent %}
+               <li><span aria-current="page" class="page-numbers current" href="{% url 'book:booksnew' page=page%}">{{page}}</span></li>
+               {% else %}
+               <li><a class="page-numbers" href="{% url 'book:booksnew' page=page%}">{{page}}</a></li>
+               {% endif %}
+               {% endfor %}
+
+            </ul>
+         </div>
+      </div>
+  </div>
+    
+ </div>
+ <div class="clearfix"></div>
+
+ 
+ {% endblock content %}
+
+ <!--Hỗ trợ select chương-->
+ <script>
+   // Lấy phần tử select
+   var selectBox = document.getElementById('selectBox');
+
+   // Thêm sự kiện change để theo dõi khi tùy chọn thay đổi
+   selectBox.addEventListener('change', function () {
+       // Lấy giá trị được chọn
+       var selectedOption = selectBox.options[selectBox.selectedIndex].value;
+       
+       // Chuyển hướng đến URL tương ứng
+       window.location.href = selectedOption;
+   });
+</script>

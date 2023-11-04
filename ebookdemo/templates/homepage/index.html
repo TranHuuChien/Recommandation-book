@@ -1,0 +1,175 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+{% load static %}      
+      <div class="container">
+         <div class="row fullwith-slider"></div>
+      </div>
+      <div class="container">
+         <div class="row container" id="wrapper">
+            <div class="halim-panel-filter">
+               <div id="ajax-filter" class="panel-collapse collapse" aria-expanded="true" role="menu">
+                  <div class="ajax"></div>
+               </div>
+            </div>
+            <div class="col-xs-12 carausel-sliderWidget">
+               <section id="halim-advanced-widget-4">
+                  <div class="section-heading">
+                     <a href="danhmuc.html" title="Phim Chiếu Rạp">
+                     <span class="h-text">Danh sách truyện hay nhất mọi thời đại</span>
+                     </a>
+                     <ul class="heading-nav pull-right hidden-xs">
+                        <li class="section-btn halim_ajax_get_post" data-catid="4" data-showpost="12" data-widgetid="halim-advanced-widget-4" data-layout="6col"><span data-text="Chiếu Rạp"></span></li>
+                     </ul>
+                  </div>
+                  <div id="halim-advanced-widget-4-ajax-box" class="halim_box">
+                     {% for book in books %}
+                     <article class="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
+                        <div class="halim-item">
+                           <a class="halim-thumb" href="{% url 'core:detail' book.book_slug %}" >
+                              <figure><img class="lazy img-responsive" src="{{book.ImageURL}}" ></figure>
+                              <span class="status">HD</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span> 
+                              <div class="icon_overlay"></div>
+                              <div class="halim-post-title-box">
+                                 <div class="halim-post-title ">
+                                    <p class="entry-title">{{book.book_name}}</p>
+                                    <p class="original_title">{{book.author}}</p>
+                                 </div>
+                              </div>
+                           </a>
+                        </div>
+                     </article>
+                     {% endfor %}
+                     
+                    
+                  </div>
+               </section>
+               <div class="clearfix"></div>
+            </div>
+            <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
+               <section id="halim-advanced-widget-2">
+                  <div class="section-heading">
+                     <a href="danhmuc.html" title="Phim Bộ">
+                     <span class="h-text">Mới ra mắt</span>
+                     </a>
+                  </div>
+                  <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
+                   {% for book in book_create %}
+                     <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+                        <div class="halim-item">
+                           <a class="halim-thumb" href="{% url 'core:detail' book.book_slug %}">
+                              <figure><img class="lazy img-responsive" src="{{book.ImageURL}}"></figure>
+
+                              <div class="icon_overlay"></div>
+                              <div class="halim-post-title-box">
+                                 <div class="halim-post-title ">
+                                    <p class="entry-title">{{book.book_name}}</p>
+                                    <p class="original_title">{{book.author}}</p>
+                                 </div>
+                              </div>
+                           </a>
+                        </div>
+                     </article>
+                     {%endfor%}
+                      
+                     
+                  </div>
+               </section>
+               <div class="clearfix"></div>
+               <section id="halim-advanced-widget-2">
+                  <div class="section-heading">
+                     <a href="danhmuc.html" title="Phim Lẻ">
+                     <span class="h-text">Gợi ý cho bạn</span>
+                     </a>
+                  </div>
+                  <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
+                     {% for book in book_recommend %}
+                     <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+                        <div class="halim-item">
+                           <a class="halim-thumb" href="{% url 'core:detail' book.book_slug %}">
+                              <figure><img class="lazy img-responsive" src="{{book.ImageURL}}"></figure>
+
+                              <div class="icon_overlay"></div>
+                              <div class="halim-post-title-box">
+                                 <div class="halim-post-title ">
+                                    <p class="entry-title">{{book.book_name}}</p>
+                                    <p class="original_title">{{book.author}}</p>
+                                 </div>
+                              </div>
+                           </a>
+                        </div>
+                     </article>
+                     {%endfor%}
+
+                  </div>
+               </section>
+               <div class="clearfix"></div>
+                <section id="halim-advanced-widget-2">
+                  <div class="section-heading">
+                     <a href="danhmuc.html" title="Phim Lẻ">
+                     <span class="h-text">Được yêu thích nhất</span>
+                     </a>
+                  </div>
+                  <div id="halim-advanced-widget-2-ajax-box" class="halim_box">
+                     {% for book in book_rating %}
+                     <article class="col-md-3 col-sm-3 col-xs-6 thumb grid-item post-37606">
+                        <div class="halim-item">
+                           <a class="halim-thumb" href="{% url 'core:detail' book.book_slug %}">
+                              <figure><img class="lazy img-responsive" src="{{book.ImageURL}}"></figure>
+
+                              <div class="icon_overlay"></div>
+                              <div class="halim-post-title-box">
+                                 <div class="halim-post-title ">
+                                    <p class="entry-title">{{book.book_name}}</p>
+                                    <p class="original_title">{{book.author}}</p>
+                                 </div>
+                              </div>
+                           </a>
+                        </div>
+                     </article>
+                     {%endfor%}
+
+                  </div>
+               </section>
+               <div class="clearfix"></div>
+            </main>
+            <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4">
+               <div id="halim_tab_popular_videos-widget-7" class="widget halim_tab_popular_videos-widget">
+                  <div class="section-bar clearfix">
+                     <div class="section-title">
+                        <span>Top Views</span>
+                     </div>
+                  </div>
+                  <section class="tab-content">
+                     <div role="tabpanel" class="tab-pane active halim-ajax-popular-post">
+                        <div class="halim-ajax-popular-post-loading hidden"></div>
+                        <div id="halim-ajax-popular-post" class="popular-post">
+                           
+                           {% for bv in books_views %}
+                           <div class="item post-37176">
+                              <a href="{% url 'core:detail' bv.book_slug %}" title="{{bv.book_name}}">
+                                 <div class="item-link">
+                                    <img style="height:63px;width:45px;" src="{{bv.ImageURL}}" class="lazy post-thumb" alt="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" />
+                                    <!--<span class="is_trailer">Trailer</span>-->
+                                 </div>
+                                 <p class="title">{{bv.book_name}}</p>
+                              </a>
+                              <div class="viewsCount" style="color: #9d9d9d;">{{bv.book_view}} lượt xem</div>
+                              <div style="float: left;">
+                                 <span class="user-rate-image post-large-rate stars-large-vang" style="display: block;/* width: 100%; */">
+                                 <span style="width: 0%"></span>
+                                 </span>
+                              </div>
+                           </div>
+                           {% endfor %}
+                          
+                        </div>
+                     </div>
+                  </section>
+                  <div class="clearfix"></div>
+               </div>
+            </aside>
+         </div>
+      </div>
+      <div class="clearfix"></div>
+
+{% endblock content %}

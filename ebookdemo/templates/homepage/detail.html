@@ -1,0 +1,465 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <div class="row fullwith-slider"></div>
+ </div>
+ <div class="container">
+    <div class="row container" id="wrapper">
+       <div class="halim-panel-filter">
+          <div class="panel-heading">
+             <div class="row">
+                <div class="col-xs-6">
+                   <div class="yoast_breadcrumb hidden-xs"><span><span><a href="danhmuc.html">Sách hay</a> » <span><a href="danhmuc.html">Việt Nam</a> » <span class="breadcrumb_last" aria-current="page">GÓA PHỤ ĐEN</span></span></span></span></div>
+                </div>
+             </div>
+          </div>
+          <div id="ajax-filter" class="panel-collapse collapse" aria-expanded="true" role="menu">
+             <div class="ajax"></div>
+          </div>
+       </div>
+       <main id="main-contents" class="col-xs-12 col-sm-12 col-md-8">
+          <section id="content" class="test">
+             <div class="clearfix wrap-content">
+               
+                <div class="halim-movie-wrapper">
+                   <div class="title-block">
+                      <div id="bookmark" class="bookmark-img-animation primary_ribbon" data-id="38424">
+                         <div class="halim-pulse-ring"></div>
+                      </div>
+                      <div class="title-wrapper" style="font-weight: bold;">
+                         Bookmark
+                      </div>
+                   </div>
+                   <div class="movie_info col-xs-12">
+                      <div class="movie-poster col-md-3">
+                         <img class="movie-thumb" src="{{book.ImageURL}}" alt="{{book.book_name}}">
+                         
+                      </div>
+                      <div class="film-poster col-md-9">
+                         <h1 class="movie-title title-1" style="display:block;line-height:35px;margin-bottom: -14px;color: #ffed4d;text-transform: uppercase;font-size: 18px;">{{book.book_name}}</h1>
+                         <h2 class="movie-title title-2" style="font-size: 12px;">Black window (2023)</h2>
+                         <ul class="list-info-group">
+                            <li class="list-info-group-item"><span>Trạng Thái</span> : 
+                                <span class="quality">{{book.get_book_status_choice_display}}</span>
+                                <span class="episode"><a href='#'>Đọc từ đầu</a></span>
+                                {% if reading_chapter != null %}
+                                <span class="quality"><a href="{% url 'chapter:chapter_by_slug' book.book_slug reading_chapter.chapter_slug %}">Đọc tiếp</a></span>
+                                {% endif %}
+                            </li>
+                            <li class="list-info-group-item"><span>Tải sách</span> : 
+                              <span class="episode">
+                                 <a href="{% url 'core:download_pdf' book_id=book.id %}">PDF</a>
+                              </span>
+                           </li>
+                            <li class="list-info-group-item"><span>Điểm IMDb</span> : <span class="imdb">{{book.book_rating}}</span></li>
+                            <li class="list-info-group-item"><span>Số chương</span> : {{ chapters.count }} Chương</li>
+                            <li class="list-info-group-item"><span>Thể loại</span> : 
+                                {% for genre in genres %}
+                                <a href="{% url 'genre:genre_by_slug' genre.genre_slug%}" rel="category tag">{{genre.genre_name}}</a>, 
+                                {% endfor %}
+                            </li>
+                            <li class="list-info-group-item"><span>Quốc gia</span> : <a href="" rel="tag">Việt Nam</a></li>
+                            <li class="list-info-group-item"><span>Tác giả</span> : <a class="director" rel="nofollow" href="{% url 'author:author_by_slug' author.author_slug %}" title="Cate Shortland">{{author}}</a></li>
+                           
+                           <li class="list-info-group-item">
+                              {% include 'homepage/share_book.html' with book=book %}
+                           </li>
+                         </ul>
+                         <div class="movie-trailer hidden"></div>
+                           
+                           <button id="like-button" class="like-button" style="width:auto;">Like</button>
+                           <span id="like-count">{{ like_count }}</span> Likes
+
+                           <button id="favourite-button" class="favourite-button" style="width:auto;">Đánh dấu</button>
+
+                      </div>
+
+                      <!-- Rating -->
+                      <div id="rating">
+                        <h2>Đánh giá:</h2>
+                        <div class="stars">
+                            <span class="star" data-rating="1">&#9733;</span>
+                            <span class="star" data-rating="2">&#9733;</span>
+                            <span class="star" data-rating="3">&#9733;</span>
+                            <span class="star" data-rating="4">&#9733;</span>
+                            <span class="star" data-rating="5">&#9733;</span>
+                        </div>
+                        <p class="selected-rating">Đánh giá của bạn: <span id="current-rating">0</span> sao</p>
+                    </div>
+                    <!-- end -->
+
+                   </div>
+                </div>
+                <div class="clearfix"></div>
+                <div id="halim_trailer"></div>
+                <div class="clearfix"></div>
+                <div class="section-bar clearfix">
+                   <h2 class="section-title"><span style="color:#ffed4d">Giới thiệu sách</span></h2>
+                </div>
+                <div class="entry-content htmlwrap clearfix">
+                   <div class="video-item halim-entry-box">
+                      <article id="post-38424" class="item-content">
+                         Sách <a href="#">{{book.book_name}}</a> :
+                         <p>{{book.book_name}} &#8211; {{book.book_description}}</p>
+                
+                      </article>
+                   </div>
+                </div>
+                <!--5 chương mới nhất-->
+                <div class="clearfix"></div>
+                <div id="halim_trailer"></div>
+                <div class="clearfix"></div>
+                <div class="section-bar clearfix">
+                   <h2 class="section-title"><span style="color:#ffed4d">5 chương mới nhất</span></h2>
+                </div>
+                <div class="entry-content htmlwrap clearfix">
+                   <div class="video-item halim-entry-box">
+                      <article id="post-38424" class="item-content">
+                        {% for fchap in five_chapters %}
+                        <p>
+                            <a href="{% url 'chapter:chapter_by_slug' book.book_slug fchap.chapter_slug %}">
+                                &emsp;{{fchap.chapter_name}}
+                            </a>
+                        </p>
+                        {% endfor %}
+                      </article>
+                   </div>
+                </div>
+                <!--Tất cả chương-->
+                <div class="clearfix"></div>
+                <div id="halim_trailer"></div>
+                <div class="clearfix"></div>
+                <div class="section-bar clearfix">
+                   <h2 class="section-title"><span style="color:#ffed4d">Danh sách chương sách</span></h2>
+                </div>
+                <div class="entry-content htmlwrap clearfix">
+                   <div class="video-item halim-entry-box">
+                      <article id="post-38424" class="item-content">
+                         {% for chap in chapters %}
+                            <p>
+                                <a href="{% url 'chapter:chapter_by_slug' book.book_slug chap.chapter_slug %}">
+                                    &emsp;{{chap.chapter_name}}
+                                </a>
+                            </p>
+                         {% endfor %}
+                      </article>
+                   </div>
+                </div>
+             </div>
+          </section>
+          <section class="related-movies">
+             <div id="halim_related_movies-2xx" class="wrap-slider">
+                <div class="section-bar clearfix">
+                   <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
+                </div>
+                
+               <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
+                  {% for book_item in book_recommendation %}
+                     <article class="thumb grid-item post-38498">
+                        <div class="halim-item">
+                           <a class="halim-thumb" href="{% url 'core:detail' book_item.book_slug %}" title="Đại Thánh Vô Song">
+                              <figure><img class="lazy img-responsive" src="{{book_item.ImageURL}}" alt="Đại Thánh Vô Song" title="Đại Thánh Vô Song"></figure>
+                              <span class="status">HD</span><span class="episode"><i class="fa fa-play" aria-hidden="true"></i>Vietsub</span> 
+                              <div class="icon_overlay"></div>
+                              <div class="halim-post-title-box">
+                                 <div class="halim-post-title ">
+                                    <p class="entry-title">{{book_item.book_name}}</p>
+                                    <p class="original_title">Mới nhất chỉ có tại đây</p>
+                                 </div>
+                              </div>
+                           </a>
+                        </div>
+                     </article>
+                     
+                  {% endfor %} 
+                </div>
+                 
+                <div class="clearfix"></div>
+                
+                <div id="halim_trailer"></div>
+                <div class="clearfix"></div>
+                <div class="section-bar clearfix">
+                   <h2 class="section-title"><span style="color:#ffed4d">Độc giả nhận xét</span></h2>
+                </div>
+                <div class="entry-content htmlwrap clearfix">
+                   <div class="video-item halim-entry-box">
+                      {% comment %} <article id="post-38424" class="item-content">
+                         Sách <a href="#">{{book.book_name}}</a> :
+                         <p>{{book.book_name}} &#8211; {{book.book_description}}</p>
+                
+                      </article> {% endcomment %}
+                      {% include 'homepage/comment.html' with book=book %}
+                   </div>
+                </div>
+                <script>
+                   jQuery(document).ready(function($) {				
+                   var owl = $('#halim_related_movies-2');
+                   owl.owlCarousel({loop: true,margin: 4,autoplay: true,autoplayTimeout: 4000,autoplayHoverPause: true,nav: true,navText: ['<i class="hl-down-open rotate-left"></i>', '<i class="hl-down-open rotate-right"></i>'],responsiveClass: true,responsive: {0: {items:2},480: {items:3}, 600: {items:4},1000: {items: 4}}})});
+                </script>
+             </div>
+          </section>
+       </main>
+       <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4">
+         <div id="halim_tab_popular_videos-widget-7" class="widget halim_tab_popular_videos-widget">
+            <div class="section-bar clearfix">
+               <div class="section-title">
+                  <span>Top Views</span>
+                  
+               </div>
+            </div>
+            <section class="tab-content">
+               <div role="tabpanel" class="tab-pane active halim-ajax-popular-post">
+                  <div class="halim-ajax-popular-post-loading hidden"></div>
+                  <div id="halim-ajax-popular-post" class="popular-post">
+                     {% for bv in books_views %}
+                        <div class="item post-37176">
+                           <a href="{% url 'core:detail' bv.book_slug %}" title="{{bv.book_name}}">
+                              <div class="item-link">
+                                 <img style="height:63px;width:45px;" src="{{bv.ImageURL}}" class="lazy post-thumb" alt="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" />
+                              </div>
+                              <p class="title">{{bv.book_name}}</p>
+                           </a>
+                           <div class="viewsCount" style="color: #9d9d9d;">{{bv.book_view}} lượt xem</div>
+                           <div style="float: left;">
+                              <span class="user-rate-image post-large-rate stars-large-vang" style="display: block;/* width: 100%; */">
+                              <span style="width: 0%"></span>
+                              </span>
+                           </div>
+                        </div>
+                     {% endfor %}
+                  </div>
+               </div>
+            </section>
+            <div class="clearfix"></div>
+         </div>
+      </aside>
+    </div>
+ </div>
+ <div class="clearfix"></div>
+
+ <!--Hỗ trợ like không load trang-->
+ {% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+
+ <script>
+   
+   $(document).ready(function() {
+      var bookId = {{ book.id }}  // Chuyển book.id từ Django vào đây
+
+         // Truy vấn trạng thái "like" từ server khi trang web được tải lên
+         $.ajax({
+               type: 'GET',
+               url: '/book/check_like_book/' + bookId + '/',  // URL của view để lấy trạng thái "like"
+               success: function(data) {
+                  if (data.liked) {
+                     $('#like-button').text('Liked');
+                     $('#like-button').addClass('liked')
+                  } else {
+                     $('#like-button').text('Like');
+                     $('#like-button').removeClass('liked');
+                  }
+               }
+         });
+
+         $.ajax({ // Truy vấn trạng thái "đánh dấu" từ server khi trang web được tải lên
+            type: 'GET',
+            url: '/book/check_favourite_book/' + bookId + '/',  // URL của view để lấy trạng thái "like"
+            success: function(data) {
+               if (data.favourited) {
+                  $('#favourite-button').text('Đã đánh dấu');
+                  $('#favourite-button').addClass('favourited')
+              } else {
+                  $('#favourite-button').text('Đánh dấu');
+                  $('#favourite-button').removeClass('favourited');
+              }
+            }
+      });
+         
+       $('#like-button').click(function() {
+           var bookId = {{ book.id }};  // Chuyển book.id từ Django vào đây
+           $.ajax({
+               type: 'POST',
+               url: '/book/like/' + bookId + '/',  // URL của view "like_book"
+               data: {
+                  csrfmiddlewaretoken: csrfToken,  // Gửi token CSRF trong yêu cầu
+              },
+               success: function(data) {
+                   if (data.liked) {
+                       $('#like-button').text('Liked');
+                       $('#like-button').addClass('liked')
+                   } else {
+                       $('#like-button').text('Like');
+                       $('#like-button').removeClass('liked');
+                   }
+                   // Cập nhật số lượt "like" ngay sau khi thực hiện "like"
+                   $('#like-count').text(data.like_count);
+               }
+           });
+       });
+
+       $('#favourite-button').click(function() {
+         var bookId = {{ book.id }};  // Chuyển book.id từ Django vào đây
+         $.ajax({
+             type: 'POST',
+             url: '/book/add_favourite/' + bookId + '/', 
+             data: {
+                csrfmiddlewaretoken: csrfToken,  // Gửi token CSRF trong yêu cầu
+            },
+             success: function(data) {
+                 if (data.favourited) {
+                     $('#favourite-button').text('Đã đánh dấu');
+                     $('#favourite-button').addClass('favourited')
+                 } else {
+                     $('#favourite-button').text('Đánh dấu');
+                     $('#favourite-button').removeClass('favourited');
+                 }
+             }
+         });
+     });
+   });
+</script>
+<script>
+   // Lấy token CSRF từ template và lưu vào biến
+   var csrfToken = "{{ csrf_token }}";
+</script>
+ 
+<style>
+   .like-button {
+       /* CSS cho nút "Like" mặc định */
+       color: #ffffff;
+       background-color: #3498db;
+       border: none;
+       padding: 10px 20px;
+       cursor: pointer;
+   }
+
+   .liked {
+       /* CSS cho nút "Like" sau khi đã "like" */
+       color: #3498db;
+       background-color: #ffffff;
+   }
+
+   .favourite-button {
+      color: #ffffff;
+      background-color: #3498db;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+  }
+
+  .favourited {
+   /* CSS cho nút "Like" sau khi đã "like" */
+   color: #3498db;
+   background-color: #ffffff;
+}
+</style>
+
+<!--JS cho Rating-->
+<script>
+   const stars = document.querySelectorAll('.star');
+   const currentRating = document.getElementById('current-rating');
+
+   stars.forEach(star => {
+       star.addEventListener('click', () => {
+            const ratingValue = parseInt(star.getAttribute('data-rating'));
+            currentRating.textContent = ratingValue;
+            sendRatingToServer(ratingValue);
+
+            // Thay đổi màu của các sao đánh giá dựa trên điểm rating
+            stars.forEach(s => {
+               const sRating = parseInt(s.getAttribute('data-rating'));
+               if (sRating <= ratingValue) {
+                   s.style.color = '#ffd700'; // Màu vàng cho các sao đã chọn
+               } else {
+                   s.style.color = '#ccc'; // Màu xám cho các sao chưa chọn
+               }
+           });
+       });
+   });
+
+   function sendRatingToServer(rating) {
+      var bookId = {{ book.id }}; 
+      $.ajax({
+          url: '/book/submit_rating/' + bookId + '/',
+          type: 'POST',
+          data: { rating: rating,
+            csrfmiddlewaretoken: csrfToken},
+          dataType: 'json',
+          success: function (data) {
+              // Xử lý phản hồi từ máy chủ (nếu cần)
+              if (data.success) {
+                  alert('Đánh giá của bạn đã được ghi nhận.');
+              } else {
+                  alert('Đã xảy ra lỗi khi ghi nhận đánh giá.');
+              }
+          },
+          error: function (xhr, status, error) {
+              console.error(error);
+              alert('Đã xảy ra lỗi khi gửi điểm rating lên máy chủ.');
+          }
+      });
+  }
+  
+</script>
+
+<style>
+   .stars {
+       font-size: 24px;
+       color: #ffd700; /* Màu vàng */
+   }
+</style>
+<style>
+   /* Màu sao đã chọn (vàng) */
+   .stars .star {
+       color: #ffd700;
+   }
+
+   /* Màu sao chưa chọn (màu xám) */
+   .stars .star:not(.selected) {
+       color: #ccc;
+   }
+</style>
+
+<script>
+   function loadUserRating(productId) {
+      var bookId = {{ book.id }}; 
+      $.ajax({
+          url: '/book/submit_rating/' + bookId + '/',
+          type: 'GET',
+          data: {  },
+          dataType: 'json',
+          success: function (data) {
+              if (data.user_rating !== null) {
+                  // Điểm rating của người dùng đã được tải từ máy chủ
+                  displayUserRating(data.user_rating);
+
+              } else {
+                  // Người dùng chưa đánh giá sản phẩm này
+              }
+          },
+          error: function (xhr, status, error) {
+              console.error(error);
+          }
+      });
+  }
+  
+  function displayUserRating(userRating) {
+      // Hiển thị điểm rating của người dùng trên trang web
+      document.getElementById('current-rating').innerHTML = userRating;
+      // Thay đổi màu của các sao đánh giá dựa trên điểm rating của người dùng
+      stars.forEach(s => {
+         const sRating = parseInt(s.getAttribute('data-rating'));
+         if (sRating <= userRating) {
+             s.style.color = '#ffd700'; // Màu vàng cho các sao đã chọn
+         } else {
+             s.style.color = '#ccc'; // Màu xám cho các sao chưa chọn
+         }
+     });
+  }
+
+  // Gọi hàm loadUserRating khi trang web tải
+  var bookId = {{ book.id }}; 
+  loadUserRating(bookId);
+</script>
+ {% endblock content %}

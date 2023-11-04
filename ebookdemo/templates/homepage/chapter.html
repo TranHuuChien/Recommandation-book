@@ -1,0 +1,293 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+{% load static %}
+<style>
+   /* Style cho phan select */
+   #selectBox {
+      width: 250px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 10px;
+   }
+</style>
+
+<style id="custom-styles">
+   :root {
+      --text-color: #d0d0ca;
+      --background-color: #222d38;
+      --font-size: 26px;
+      --font-family: "Palatino Linotype", "Arial", "Times New Roman", sans-serif;
+      --line-height: 2.5;
+   }
+
+   #content {
+      color: var(--text-color);
+      background-color: var(--background-color);
+      font-size: var(--font-size);
+      font-family: var(--font-family);
+      line-height: var(--line-height);
+   }
+</style>
+
+<div class="container">
+   <div class="row fullwith-slider"></div>
+</div>
+<div class="container">
+   <div class="row container" id="wrapper">
+      <div class="halim-panel-filter">
+         <div class="panel-heading">
+            <div class="row">
+               <div class="col-xs-6">
+                  <div class="yoast_breadcrumb hidden-xs"><span><span><a href="">Hành động</a> » <span><a
+                                 href="danhmuc.html">Fujiko F. Fujio</a> » <span class="breadcrumb_last"
+                                 aria-current="page">Doraemon</span></span></span></span></div>
+               </div>
+            </div>
+         </div>
+         <div id="ajax-filter" class="panel-collapse collapse" aria-expanded="true" role="menu">
+            <div class="ajax"></div>
+         </div>
+      </div>
+
+      <section id="content" class="test">
+         <div class="clearfix wrap-content">
+            <div class="clearfix"></div>
+            <div class="clearfix"></div>
+            <div class="title-block">
+               <a href="javascript:;" data-toggle="tooltip" title="Add to bookmark">
+                  <div id="bookmark" class="bookmark-img-animation primary_ribbon" data-id="37976">
+                     <div class="halim-pulse-ring"></div>
+                  </div>
+               </a>
+               <div class="">
+                  <h3 class="entry-title">
+                     <a href="" title="{{chapter.chapter_name}}" class="tl">
+                        {{chapter.chapter_name}}
+                     </a>
+                  </h3>
+                  <hr />
+               </div>
+               <select id="selectBox" class="form-select" aria-label="Default select example">
+                  {% for chap in chapters %}
+                  {% if chap.chapter_slug == chapter.chapter_slug %}
+                  <option selected value="{% url 'chapter:chapter_by_slug' book.book_slug chap.chapter_slug %}">
+                     {{chap.chapter_name}}
+                  </option>
+                  {% else %}
+                  <option value="{% url 'chapter:chapter_by_slug' book.book_slug chap.chapter_slug %}">
+                     {{chap.chapter_name}}
+                  </option>
+                  {% endif %}
+                  {% endfor %}
+               </select>
+
+            </div>
+            <div class="title-block">
+               {% for content in contents %}
+               <p class="chapter">{{content}}.
+               <p>
+                  {% endfor %}
+                  <!-- Chỉnh sửa giao diện-->
+                  <label for="text-color">Màu chữ:</label>
+                  <input type="color" id="text-color" value="#d0d0ca"><br>
+
+                  <label for="background-color">Màu nền:</label>
+                  <input type="color" id="background-color" value="#222d38"><br>
+
+                  <label for="font-size">Cỡ chữ:</label>
+                  <input type="range" id="font-size" min="15" max="50" value="26"><br>
+
+                  <label for="font-family">Phông chữ:</label>
+                  <select id="font-family">
+                     <option value="Palatino Linotype, sans-serif">Palatino Linotype</option>
+                     <option value="Arial, sans-serif">Arial</option>
+                     <option value="Times New Roman, serif">Times New Roman</option>
+                     <option value="Verdana, sans-serif">Verdana</option>
+                  </select><br>
+
+                  <label for="line-height">Chiều cao dòng:</label>
+                  <input type="range" id="line-height" min="1" max="4" step="0.2" value="2.5"><br>
+                  <!--end-->
+
+            </div>
+            <div class="entry-content htmlwrap clearfix collapse" id="expand-post-content">
+               <article id="post-37976" class="item-content post-37976"></article>
+            </div>
+            <div class="clearfix"></div>
+            <div class="text-center">
+               <div id="halim-ajax-list-server"></div>
+            </div>
+            <div id="halim-list-server">
+               <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active server-1"><a href="#server-0" aria-controls="server-0"
+                        role="tab" data-toggle="tab"><i class="hl-server"></i> Vietsub</a></li>
+               </ul>
+               <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active server-1" id="server-0">
+                     <div class="halim-server">
+                        <ul class="halim-list-eps">
+                           <li class="halim-episode"><span
+                                 class="halim-btn halim-btn-2 active halim-info-1-1 box-shadow" data-post-id="37976"
+                                 data-server="1" data-episode="1" data-position="first" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 1 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 1">1</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-2 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="2" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 2 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 2">2</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-3 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="3" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 3 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 3">3</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-4 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="4" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 4 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 4">4</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-5 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="5" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 5 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 5">5</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-6 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="6" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 6 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 6">6</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-7 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="7" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 7 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 7">7</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-8 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="8" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 8 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 8">8</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-9 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="9" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 9 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 9">9</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-10 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="10" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 10 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 10">10</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-11 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="11" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 11 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 11">11</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-12 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="12" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 12 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 12">12</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-13 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="13" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 13 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 13">13</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-14 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="14" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 14 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 14">14</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-15 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="15" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 15 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 15">15</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-16 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="16" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 16 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 16">16</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-17 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="17" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 17 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 17">17</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-18 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="18" data-position="" data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 18 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 18">18</span></li>
+                           <li class="halim-episode"><span class="halim-btn halim-btn-2 halim-info-1-19 box-shadow"
+                                 data-post-id="37976" data-server="1" data-episode="19" data-position="last"
+                                 data-embed="0"
+                                 data-title="Xem phim Tôi Và Chúng Ta Ở Bên Nhau - Tập 19 - Be Together - vietsub + Thuyết Minh"
+                                 data-h1="Tôi Và Chúng Ta Ở Bên Nhau - tập 19">19</span></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="htmlwrap clearfix">
+               <div id="lightout"></div>
+            </div>
+      </section>
+      <section class="related-movies">
+         <div id="halim_related_movies-2xx" class="wrap-slider">
+            <div class="section-bar clearfix">
+               <h3 class="section-title"><span>CÓ THỂ BẠN MUỐN XEM</span></h3>
+            </div>
+            <div id="halim_related_movies-2" class="owl-carousel owl-theme related-film">
+
+               {% for book_item in book_recommendation %}
+               <article class="thumb grid-item post-38494">
+                  <div class="halim-item">
+                     <a class="halim-thumb" href="chitiet.html" title="Câu Chuyện Kinh Dị Cổ Điển">
+                        <figure><img class="lazy img-responsive"
+                              src="{{book_item.ImageURL}}" alt="Câu Chuyện Kinh Dị Cổ Điển" title="Câu Chuyện Kinh Dị Cổ Điển"></figure>
+                        <div class="halim-post-title-box">
+                           <div class="halim-post-title ">
+                              <p class="entry-title">{{book_item.book_name}}</p>
+                              <p class="original_title">A Classic Horror Story</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </article>
+               {% endfor %} 
+            </div>
+            <script>
+               jQuery(document).ready(function ($) {
+                  var owl = $('#halim_related_movies-2');
+                  owl.owlCarousel({ loop: true, margin: 6, autoplay: true, autoplayTimeout: 4000, autoplayHoverPause: true, nav: true, navText: ['<i class="hl-down-open rotate-left"></i>', '<i class="hl-down-open rotate-right"></i>'], responsiveClass: true, responsive: { 0: { items: 2 }, 480: { items: 3 }, 600: { items: 4 }, 1000: { items: 6 } } })
+               });
+            </script>
+         </div>
+      </section>
+
+
+   </div>
+</div>
+<div class="clearfix"></div>
+
+<!--Hỗ trợ select chương-->
+<script>
+   // Lấy phần tử select
+   var selectBox = document.getElementById('selectBox');
+
+   // Thêm sự kiện change để theo dõi khi tùy chọn thay đổi
+   selectBox.addEventListener('change', function () {
+      // Lấy giá trị được chọn
+      var selectedOption = selectBox.options[selectBox.selectedIndex].value;
+
+      // Chuyển hướng đến URL tương ứng
+      window.location.href = selectedOption;
+   });
+</script>
+<script>
+   const textColorInput = document.getElementById('text-color');
+   const backgroundColorInput = document.getElementById('background-color');
+   const fontSizeInput = document.getElementById('font-size');
+   const fontFamilySelect = document.getElementById('font-family');
+   const lineHeightInput = document.getElementById('line-height');
+   const customStyles = document.getElementById('custom-styles').sheet;
+
+   textColorInput.addEventListener('input', updateStyles);
+   backgroundColorInput.addEventListener('input', updateStyles);
+   fontSizeInput.addEventListener('input', updateStyles);
+   fontFamilySelect.addEventListener('change', updateStyles);
+   lineHeightInput.addEventListener('input', updateStyles);
+
+   function updateStyles() {
+      customStyles.cssRules[0].style.setProperty('--text-color', textColorInput.value);
+      customStyles.cssRules[0].style.setProperty('--background-color', backgroundColorInput.value);
+      customStyles.cssRules[0].style.setProperty('--font-size', fontSizeInput.value + 'px');
+      customStyles.cssRules[0].style.setProperty('--font-family', fontFamilySelect.value);
+      customStyles.cssRules[0].style.setProperty('--line-height', lineHeightInput.value);
+   }
+</script>
+{% endblock content %}

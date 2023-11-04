@@ -1,0 +1,163 @@
+<style>
+    .comment {
+        display: flex;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .avatar {
+        max-width: 40px;
+        height: auto;
+        border-radius: 50%;
+        margin: 8px 4px!important;
+    }
+    
+    .comment-content {
+        flex: 1;
+    }
+    
+    .comment-author {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    
+    .comment-content p:first-child {
+        margin-bottom: 5px;
+    }
+
+    {% comment %} form {% endcomment %}
+    .comment-container {
+        display: flex;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .user-profile {
+        flex-shrink: 0;
+        text-align: center;
+        margin-right: 20px;
+    }
+    
+    .avatar2 {
+        max-width: 80px;
+        height: auto;
+        border-radius: 50%;
+    }
+    
+    .user-name {
+        font-weight: bold;
+        margin-top: 5px;
+    }
+    
+    .comment-form {
+        flex: 1;
+    }
+    
+    .comment-form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    
+    .comment-form button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+</style>
+<div class="comment-container">
+    <div class="user-profile">
+        <img src="https://nguoinoitieng.tv/images/nnt/96/0/bbji.jpg" alt="Avatar" class="avatar2">
+        <p class="user-name">John Doe</p>
+    </div>
+    <div class="comment-form">
+        <form id="comment-form" action="{% url 'book:save_comment' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="book_id" value="{{book.id}}">
+            <div class="form-group">
+                {% comment %} <textarea id="comment" name="content" rows="2" placeholder="Viết bình luận của bạn..." required></textarea> {% endcomment %}
+                <textarea name="content" id="comment-content" placeholder="Thêm bình luận"></textarea>
+            </div>
+            <button type="submit">Bình luận</button>
+        </form>
+    </div>
+</div>
+
+<div id="comment-list">
+    <!-- Dữ liệu bình luận sẽ được hiển thị ở đây -->
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var bookId = {{ book.id }};  // Chuyển book.id từ Django vào đây
+
+        // Function để hiển thị danh sách bình luận
+        function showComments() {
+            $.ajax({
+                type: 'GET',
+                url: '/book/get-comments/' + bookId + '/',  // URL của view để lấy danh sách bình luận
+                success: function(data) {
+                    //$('#comment-list').html(data.html);  // Hiển thị danh sách bình luận
+                    // Clear existing comments
+                    $('#comment-list').empty();
+
+                    // Loop through the received comments and append them to the #comments div
+                    for (var i = 0; i < data.comments.length; i++) {
+                        var comment = data.comments[i];
+                        var commentText = '<div class="comment">';
+                        commentText += '<img src="https://nguoinoitieng.tv/images/nnt/96/0/bbji.jpg" alt="Avatar" class="avatar">';
+                        commentText += '<div class="comment-content">';
+                        //commentText += '<p><strong>' + comment.username + '</strong> at ' + comment.created_at + '</p>';
+                        commentText += '<p><span class="comment-author">'+comment.username+'</span> at '+comment.created_at+'</p>';
+                        commentText += '<p>' + comment.text + '</p>';
+                        // Nếu là của người đang đăng nhập thì cho xóa
+                        commentText += '</div>';
+                        commentText += '</div>';
+                        $('#comment-list').append(commentText);
+                    }
+                }
+            });
+        }
+
+        // Hiển thị danh sách bình luận khi trang web được tải lên
+        showComments();
+
+        // Xử lý khi người dùng thêm bình luận
+        $('#comment-form').submit(function(e) {
+            e.preventDefault();
+            var commentContent = $('#comment-content').val();
+            $.ajax({
+                type: 'POST',
+                url: '/book/add-comment/' + bookId + '/',  // URL của view để thêm bình luận
+                data: {
+                    csrfmiddlewaretoken: csrfToken,  // Gửi token CSRF trong yêu cầu
+                    content: commentContent
+                },
+                success: function(data) {
+                    // Hiển thị danh sách bình luận sau khi thêm
+                    showComments();
+                    // Xóa nội dung trong ô textarea
+                    $('#comment-content').val('');
+                }
+            });
+        });
+    });
+</script>

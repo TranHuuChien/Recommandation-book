@@ -1,0 +1,58 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+{% load static %}
+
+ <div class="container">
+        <div class="col-xs-12 carausel-sliderWidget">
+         <section id="halim-advanced-widget-4">
+            <div class="section-heading">
+               <a href="danhmuc.html" title="Phim Chiếu Rạp">
+               <span class="h-text">{{title}}</span>
+               </a>
+               <ul class="heading-nav pull-right hidden-xs">
+                  <li class="section-btn halim_ajax_get_post" data-catid="4" data-showpost="12" data-widgetid="halim-advanced-widget-4" data-layout="6col"></li>
+               </ul>
+            </div>
+            <div id="halim-advanced-widget-4-ajax-box" class="halim_box">
+               {% for rd in reading_books %}
+               <article class="col-md-2 col-sm-4 col-xs-6 thumb grid-item post-38424">
+                  <div class="halim-item">
+                     <a class="halim-thumb" href="{% url 'chapter:chapter_by_slug' rd.chapter.book.book_slug rd.chapter.chapter_slug%}" >
+                        <figure><img class="lazy img-responsive" src="{{rd.chapter.book.ImageURL}}" ></figure>
+                        <div class="halim-post-title-box">
+                           <div class="halim-post-title ">
+                              <p class="entry-title">{{rd.chapter.book.book_name}}</p>
+                              <p class="original_title">{{rd.chapter.chapter_name}}</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+               </article>
+               {% endfor %}
+               
+            </div>
+         </section>
+         <div class="clearfix"></div>
+      </div>
+  </div>
+    
+ </div>
+ <div class="clearfix"></div>
+
+ 
+ {% endblock content %}
+
+ <!--Hỗ trợ select chương-->
+ <script>
+   // Lấy phần tử select
+   var selectBox = document.getElementById('selectBox');
+
+   // Thêm sự kiện change để theo dõi khi tùy chọn thay đổi
+   selectBox.addEventListener('change', function () {
+       // Lấy giá trị được chọn
+       var selectedOption = selectBox.options[selectBox.selectedIndex].value;
+       
+       // Chuyển hướng đến URL tương ứng
+       window.location.href = selectedOption;
+   });
+</script>

@@ -1,0 +1,72 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+{% load static %}      
+      <div class="container">
+         <div class="row fullwith-slider"></div>
+      </div>
+      <div class="container">
+         <div class="row container" id="wrapper">
+            <div class="halim-panel-filter">
+               <div id="ajax-filter" class="panel-collapse collapse" aria-expanded="true" role="menu">
+                  <div class="ajax"></div>
+               </div>
+            </div>
+            <div class="section-bar clearfix">
+               <h2 class="section-title"><span style="color:#ffed4d">Thông tin tài khoản</span></h2>
+            </div>
+            <div class="col-xs-12 carausel-sliderWidget">
+               <section id="halim-advanced-widget-4">
+                  <div class="entry-content htmlwrap clearfix">
+                     <div class="video-item halim-entry-box" style="margin:30px 100px">
+                  <form id="register-form" action="{% url 'user:account' %}" method="post" role="form">
+                     {% if error_message_2 %}
+                              <span class='text-success'>{{error_message_2}}</span>
+                     {% endif %}
+                     {% csrf_token %}
+                     <div class="form-group">
+                        
+                                  {{f.email}}
+                     </div>
+                     <div class="form-group">
+               
+                           {{f.first_name}}
+                     </div>
+                     <div class="form-group">
+               
+                           {{f.last_name}}
+                     </div>
+                     <div class="form-group">
+
+                           {{f.sex}}
+                     </div>
+                     <div class="form-group">
+                           <label for="birthday">Ngày sinh:</label>
+                           
+                           {{f.birth}}
+                     </div>
+                     <div class="form-group">
+               
+                           {{f.address}}
+                     </div>
+                     
+                     <div class="form-group">
+                        <div class="row">
+                           <div class="col-sm-6 col-sm-offset-3">
+                              <input type="submit" name="update-account" tabindex="4" class="form-control btn btn-register" value="Cập nhật">
+                              <a href="{% url 'user:change-password' %}" style="margin-top:5px" type="button" tabindex="4" class="form-control btn btn-register">Đổi mật khẩu</a>
+                           </div>
+                           
+                        </div>
+                     </div>
+                  </form>
+                  <div>
+                  </div>
+               </section>
+               <div class="clearfix"></div>
+            </div>
+            
+         </div>
+      </div>
+      <div class="clearfix"></div>
+
+{% endblock content %}
